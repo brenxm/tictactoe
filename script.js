@@ -1,45 +1,18 @@
-const GameModule = (function(){
+import { UiModule, UiElement } from "./module.mjs";
 
-    let _previousPlayer = '';
+//process all ui element
+UiElement.onStartUp();
 
-    const newGame = () => {
-
+const GameModule = (function () {
+    function newGame(){
+        UiModule.displayInfo.opponentSelection();
     }
-
-    const playerWon = (player) => {
-        //announce who won
-    }
-
-    const backToHome = () => {
-        //equiv to restarting game
-    }
-
-    const evaluateBoard = () => {
-        //check if someone won
-
-    }
-
+    
+    return { newGame };
 })();
 
-
-const Player = (name, assignedScoreboard) => {
-
-    let score = 0;
-
-    const select = (grid) => {
-        //player selected this grid
-    }
-
-    return { name, assignedScoreboard, select };
-}
+UiElement.elements["start-button"].addEventListener("click", GameModule.newGame);
 
 
-const uiModule = (function(){
-    const touchGrid = () => {
 
-    }
 
-    const updateScore = (player) => {
-
-    }
-})();

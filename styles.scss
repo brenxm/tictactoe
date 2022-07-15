@@ -52,14 +52,90 @@ body {
 .display-info-container {
     width: $main-width;
     height: 200px;
-    background-color: red;
+    background-color: rgb(230, 230, 230);
+    border-radius: 13px;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+
+     * {
+        height: 100%;
+        width: 100%;
+    }
+
+    .new-game-info {
+        background-color: transparent;
+        display: block;
+
+        .start-button {
+            background-color: dodgerblue;
+            border-radius: 13px;
+            padding: 12px 50px;
+            border: none;
+            color: white;
+            letter-spacing: 3px;
+            font-weight: 700;
+            font-size: 20px;
+            height: auto;
+            width: auto;
+            margin: 75px auto 0 auto;
+            display: block;
+        }
+
+        .start-button:hover{
+            filter: brightness(95%);
+        }
+
+        .start-button:active {
+            filter: brightness(85%);
+        }
+    }
+
+    .opponent-selection-info {
+        display: none;
+
+        .versus-txt{
+            font-size: 30px;
+            height: 40px;
+            margin: 15px 0 30px 0;
+            text-align: center;
+        }
+
+        .versus-but-container {
+            display: flex;
+            padding: 12px;
+            gap: 12px;
+            height: 50px;
+            justify-content: center;
+            align-items: center;
+
+            * {
+                padding: 0;
+                height: 40px;
+                font-size: 20px;
+                border: none;
+                border-radius: 6px;
+            }
+        }
+    }
+
+    .naming-player-info {
+        display:none;
+
+    }
+
+    .score-board-info {
+        display: none;
+
+    }
+    
 }
 
+//flipping grid animation
 @keyframes selected {
     0%{
         transform: scale3d(1, 1, 1);
         box-shadow: 3px 3px 5px rgb(44, 44, 44);
         background-image: linear-gradient(90deg, #cdcdcd, #cdcdcd);
+        z-index: 2;
     }
 
     50%{
@@ -76,5 +152,6 @@ body {
         transform: scale3d(1, 1, 1);
         box-shadow: 3px 3px 5px rgb(44, 44, 44);
         background-image: linear-gradient(90deg, #cdcdcd, #cdcdcd);
+        z-index: 2;
     }
 }
