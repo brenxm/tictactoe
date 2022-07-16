@@ -13,12 +13,13 @@ body {
 }
 
 .title-container {
-  background-color: red;
+  background-color: transparent;
   height: 50px;
   width: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-bottom: 5px solid dodgerblue;
 }
 .title-container h1 {
   color: white;
@@ -50,7 +51,7 @@ body {
   border-radius: 13px;
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
 }
-.display-info-container * {
+.display-info-container > {
   height: 100%;
   width: 100%;
 }
@@ -95,15 +96,33 @@ body {
   justify-content: center;
   align-items: center;
 }
-.display-info-container .opponent-selection-info .versus-but-container * {
+.display-info-container .opponent-selection-info .versus-but-container > * {
   padding: 0;
   height: 40px;
   font-size: 20px;
   border: none;
   border-radius: 6px;
+  flex: 1;
 }
 .display-info-container .naming-player-info {
   display: none;
+  padding: 10px;
+}
+.display-info-container .naming-player-info > * {
+  display: block;
+  margin: 25px auto 0 auto;
+  text-align: center;
+}
+.display-info-container .naming-player-info button {
+  height: auto;
+  width: auto;
+  padding: 12px 50px;
+  border: none;
+  border-radius: 5px;
+  background-color: dodgerblue;
+  color: white;
+  font-weight: 600;
+  letter-spacing: 2px;
 }
 .display-info-container .score-board-info {
   display: none;

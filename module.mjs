@@ -1,36 +1,48 @@
-const UiModule = (function () {
+const UiDisplayModule = (function () {
     //module to change info display
     const displayInfo = (function (infoContainer) {
         const home = () => {
         }
 
         const opponentSelection = () => {
-            UiElement.elements["new-game-info"].style.display = "none";
-            UiElement.elements["opponent-selection-info"].style.display = "block";
+            UiElement.elements.newGameContainer.style.display = "none";
+            UiElement.elements.opponentSelectionInfo.style.display = "block";
+
         }
-        return { home, opponentSelection }
+
+        const nameInput = (() => {
+
+            const player = () => { 
+                console.log("called");
+                UiElement.elements.opponentSelectionInfo.style.display = "none";
+                UiElement.elements.namingContainer.style.display = "block";
+                console.log(UiElement.elements.namingContainer.firstChild);
+            }
+
+            return { player };
+        })();
+        return { home, opponentSelection, nameInput }
     })();
 
     return {displayInfo}
 })();
 
+
+
 const UiElement = (function(doc){
-    const elements = {
+    const elements = {}
 
+    function setElementByClass(varName, className, eventType, clickFn){
+        if (elements.hasOwnProperty(varName)) console.error("duplicate obj property", elements);
+
+        elements[varName] = doc.querySelector(`.${className}`);
+        
+        if (arguments[2]) elements[varName].addEventListener(eventType, clickFn);
     }
 
-    function getElementByClass(className){
-        elements[className] = doc.querySelector(`.${className}`);
-    }
-
-    function onStartUp(){
-        getElementByClass("start-button");
-        getElementByClass("opponent-selection-info");
-        getElementByClass("new-game-info");
-    };
-
-    return {onStartUp, elements}
+    return {elements, setElementByClass};
 })(document);
 
 
-export {UiModule, UiElement}
+export {UiDisplayModule, UiElement}
+

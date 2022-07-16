@@ -15,12 +15,13 @@ body {
 }
 
 .title-container {
-    background-color: red;
+    background-color: transparent;
     height: 50px;
     width: $main-width;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-bottom: 5px solid dodgerblue;
 
     h1{
         color: white;
@@ -56,7 +57,7 @@ body {
     border-radius: 13px;
     box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
 
-     * {
+     > {
         height: 100%;
         width: 100%;
     }
@@ -107,18 +108,38 @@ body {
             justify-content: center;
             align-items: center;
 
-            * {
+            > * {
                 padding: 0;
                 height: 40px;
                 font-size: 20px;
                 border: none;
                 border-radius: 6px;
+                flex: 1;
             }
         }
     }
 
     .naming-player-info {
         display:none;
+        padding: 10px;
+
+        > * {
+            display: block;
+            margin: 25px auto 0 auto;
+            text-align: center;
+        }
+
+        button {
+            height: auto;
+            width: auto;
+            padding: 12px 50px;
+            border: none;
+            border-radius: 5px;
+            background-color: dodgerblue;
+            color: white;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
 
     }
 

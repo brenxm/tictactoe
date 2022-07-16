@@ -1,18 +1,26 @@
-import { UiModule, UiElement } from "./module.mjs";
+import { UiDisplayModule, UiElement } from "./module.mjs";
 
-//process all ui element
-UiElement.onStartUp();
 
 const GameModule = (function () {
     function newGame(){
-        UiModule.displayInfo.opponentSelection();
+        UiDisplayModule.displayInfo.opponentSelection();
     }
+
+    //opponent selection paths
+    function personSelected(){
+        //input first name of player
+        UiDisplayModule.displayInfo.nameInput.player()
+    }
+
     
-    return { newGame };
+    return { newGame, personSelected };
 })();
 
-UiElement.elements["start-button"].addEventListener("click", GameModule.newGame);
 
-
+UiElement.setElementByClass("startButton", "start-button", "click", GameModule.newGame);
+UiElement.setElementByClass("newGameContainer", "new-game-info");
+UiElement.setElementByClass("opponentSelectionInfo", "opponent-selection-info");
+UiElement.setElementByClass("personButton", "person-but", "click", GameModule.personSelected)
+UiElement.setElementByClass("namingContainer", "naming-player-info");
 
 
