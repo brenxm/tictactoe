@@ -16,7 +16,7 @@ const UiDisplayModule = (function () {
                 console.log("called");
                 UiElement.elements.opponentSelectionInfo.style.display = "none";
                 UiElement.elements.namingContainer.style.display = "block";
-                console.log(UiElement.elements.namingContainer.firstChild);
+                UiElement.elements.namingContainer.firstElementChild.textContent = "player one's name"   
             }
 
             return { player };
