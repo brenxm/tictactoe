@@ -2,6 +2,9 @@ const UiDisplayModule = (function () {
     //module to change info display
     const displayInfo = (function (infoContainer) {
         const home = () => {
+            UiElement.elements.newGameContainer.style.display = "block";
+            UiElement.elements.popupContainer.style.display = "none";
+            UiElement.elements.scoreboardContainer.style.display = "none";
         }
 
         const opponentSelection = () => {
@@ -32,11 +35,12 @@ const UiDisplayModule = (function () {
         }
 
         const togglePopupContainer = (player) => {
+            console.log('called');
             const active = UiElement.elements.popupContainer.style.display == "block";
             if (active) return UiElement.elements.popupContainer.style.display = "none";
             UiElement.elements.popupContainer.style.display = "block";
+            if (!player) return;
             UiElement.elements.popupText.textContent = `Player ${player.name} has WON!`;  
-
         }
 
 
@@ -68,6 +72,14 @@ const UiElement = (function(doc){
         });
     }
 
+    function clearGridSlot(){
+        gridSlots.forEach((grid) => {
+            grid.occupied = false;
+            grid.element.style.backgroundImage = "";
+            console.log("colled");
+        });
+    }
+
     function setElementByClass(varName, className, eventType, clickFn){
         if (elements.hasOwnProperty(varName)) throw new error("existed");
 
@@ -92,7 +104,7 @@ const UiElement = (function(doc){
         return gridSlots.find(elem => clicked.target == elem.element);
     }
 
-    return {elements, setElementByClass, setElementsByClass, enableEventListeners, setGridSlot, gridSlots, thisElement};
+    return {elements, setElementByClass, setElementsByClass, enableEventListeners, setGridSlot, gridSlots, thisElement, clearGridSlot};
 })(document);
 
 

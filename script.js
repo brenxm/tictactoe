@@ -45,8 +45,16 @@ const GameModule = (function () {
         //pick who's turn randomly
         Math.random() < 0.5 ? _currentTurn = _playerOne : _currentTurn = _playerTwo;
 
+
         UiElement.elements.announcerText.textContent = `It's ${_currentTurn.name} move.`
 
+        _playing = true;
+    }
+
+    function nextRound(){
+        UiDisplayModule.displayInfo.togglePopupContainer(null);
+        UiElement.clearGridSlot();
+        turnCurrentTurn();
         _playing = true;
     }
 
@@ -116,7 +124,24 @@ const GameModule = (function () {
         UiDisplayModule.updateScore(thisPlayer);
     }
 
-    return { newGame, personSelected, setPlayer, slotSelected, slotHover, slotHoverOut};
+    function navigateToHome(){
+        UiDisplayModule.displayInfo.home();
+        clearBoard();
+        clearUserData();
+    }
+
+    function clearBoard(){
+        //clear all board to blank
+        //set gridslots occupied all to false
+        UiElement.clearGridSlot();
+    }
+
+    function clearUserData(){
+        _playerOne = null;
+        _playerTwo = null;
+    }
+
+    return { newGame, personSelected, setPlayer, slotSelected, slotHover, slotHoverOut, navigateToHome, newRound, nextRound};
 })();
 
 const newPlayer = (name, symbol, playerNumber)=>{
@@ -133,6 +158,7 @@ UiElement.setElementByClass("namingContainer", "naming-player-info");
 UiElement.setElementByClass("nameInput", "name-input");
 UiElement.setElementByClass("acceptNameBut", "accept-name-but", "click", GameModule.setPlayer);
 UiElement.setElementByClass("scoreboardContainer", "score-board-info");
+UiElement.setElementByClass("scoreInfoContainer", "scoreboard-container")
 UiElement.setElementByClass("playerOneName", "player-one-name");
 UiElement.setElementByClass("playerTwoName", "player-two-name");
 UiElement.setElementByClass("playerOneScore", "score-A");
@@ -144,6 +170,8 @@ UiElement.enableEventListeners("gridSlot", "mouseout", GameModule.slotHoverOut);
 UiElement.setGridSlot(UiElement.elements.gridSlot);
 UiElement.setElementByClass("popupContainer", "popup-container");
 UiElement.setElementByClass("popupText", "popup-announcer-text");
+UiElement.setElementByClass("homeBut", "home-but", "click", GameModule.navigateToHome);
+UiElement.setElementByClass("continueBut", "continue-but", "click", GameModule.nextRound);
 
 
 
