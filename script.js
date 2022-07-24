@@ -2,8 +2,8 @@ import { UiDisplayModule, UiElement } from "./module.mjs";
 
 
 const GameModule = (function () {
-    const SYMBOL_X = "url(./svg/X.svg)";
-    const SYMBOL_O = "url(./svg/O.svg)";
+    const SYMBOL_X = "url(./svg/x.svg)";
+    const SYMBOL_O = "url(./svg/o.svg)";
     let _currentTurn = null;
     let _playerOne = null;
     let _playerTwo = null;
@@ -120,6 +120,10 @@ const GameModule = (function () {
                 }
             }
         )
+    }
+
+    function playerWon(thisPlayer){
+        //set animation
     }
 
     return { newGame, personSelected, setPlayer, slotSelected, slotHover, slotHoverOut};
