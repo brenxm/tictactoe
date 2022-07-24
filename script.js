@@ -9,7 +9,7 @@ const GameModule = (function () {
     let _playerTwo = null;
     let _versusPlayer = null;
     let _playing = false;
-    console.log('called nodule');
+
     function newGame(){
         UiDisplayModule.displayInfo.opponentSelection();
     }
@@ -95,8 +95,11 @@ const GameModule = (function () {
 
         slots.forEach((line) => {
             const allEqual = line.every( (value, i, arr) => value.occupied === arr[0].occupied && arr[0].occupied != false);
-            if(allEqual) playerWon(_currentTurn);
+            if(allEqual) return playerWon(_currentTurn);
         })
+
+        const trueth = UiElement.gridSlots.every((slot) => slot.occupied != false);
+        if (trueth) console.log("no wan won");
     }
     function playerWon(thisPlayer){
         console.log(`${thisPlayer.name} has won!`);
