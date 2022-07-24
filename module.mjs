@@ -16,7 +16,7 @@ const UiDisplayModule = (function () {
                 console.log("called");
                 UiElement.elements.opponentSelectionInfo.style.display = "none";
                 UiElement.elements.namingContainer.style.display = "block";
-                UiElement.elements.namingContainer.firstElementChild.textContent = "player one's name"   
+                UiElement.elements.namingContainer.firstElementChild.textContent = "player one's name";
             }
 
             return { player };
@@ -29,15 +29,31 @@ const UiDisplayModule = (function () {
             UiElement.elements.playerTwoName.textContent = playerTwoName;
             UiElement.elements.playerOneScore.textContent = 0;
             UiElement.elements.playerTwoScore.textContent = 0;
+        }
 
+        const togglePopupContainer = (player) => {
+            const active = UiElement.elements.popupContainer.style.display == "block";
+            if (active) return UiElement.elements.popupContainer.style.display = "none";
+            UiElement.elements.popupContainer.style.display = "block";
+            UiElement.elements.popupText.textContent = `Player ${player.name} has WON!`;  
 
         }
 
 
-        return { home, opponentSelection, nameInput, scoreboard }
+        return { home, opponentSelection, nameInput, scoreboard, togglePopupContainer }
     })();
 
-    return {displayInfo}
+    function updateScore(player){
+        if(player.playerNumber == 1) UiElement.elements.playerOneScore.textContent = player.score;
+        if (player.playerNumber == 2) UiElement.elements.playerTwoScore.textContent = player.score;
+
+    }
+
+    function updateAnnouncer(message){
+        UiElement.elements.announcerText.textContent = message;
+    }
+
+    return {displayInfo, updateScore, updateAnnouncer}
 })();
 
 

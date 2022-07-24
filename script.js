@@ -2,8 +2,8 @@ import { UiDisplayModule, UiElement } from "./module.mjs";
 
 
 const GameModule = (function () {
-    const SYMBOL_X = "url(./svg/x.svg)";
-    const SYMBOL_O = "url(./svg/o.svg)";
+    const SYMBOL_X = 'url("./svg/x.svg")';
+    const SYMBOL_O = 'url("./svg/o.svg")';
     let _currentTurn = null;
     let _playerOne = null;
     let _playerTwo = null;
@@ -22,11 +22,11 @@ const GameModule = (function () {
     function setPlayer(){
         const name = UiElement.elements.nameInput.value;
         if (!_playerOne) {
-            _playerOne =  newPlayer(name, SYMBOL_X);
+            _playerOne =  newPlayer(name, SYMBOL_X, 1);
         } 
 
         else {
-            _playerTwo =  newPlayer(name, SYMBOL_O);
+            _playerTwo =  newPlayer(name, SYMBOL_O, 2);
             newRound();
             return;
         }
@@ -57,30 +57,28 @@ const GameModule = (function () {
         if(!grid.occupied){
             grid.element.style.backgroundImage = _currentTurn.symbol;
             grid.occupied = _currentTurn.symbol;
-            console.log(grid.occupied);
-            turnCurrentTurn();
             evaluate();
+            if(_playing) turnCurrentTurn();
         }
     }
 
     function slotHover(event){
+        if(!_playing) return;
         const grid = UiElement.thisElement(event);
-        if (grid.occupied){
-            return;
-        }
+        if (grid.occupied) return;
         event.target.style.backgroundImage = _currentTurn.symbol;
     }
 
     function slotHoverOut(event){
+        if(!_playing) return;
         const grid = UiElement.thisElement(event);
-        if (grid.occupied){
-            return
-        }
+        if (grid.occupied) return;
         event.target.style.backgroundImage = "";
     }
 
     function turnCurrentTurn(){
         _currentTurn == _playerOne ? _currentTurn = _playerTwo : _currentTurn = _playerOne;
+        UiDisplayModule.updateAnnouncer(`It's player ${_currentTurn.name} turn`);
     }
 
     function evaluate(){
@@ -95,43 +93,32 @@ const GameModule = (function () {
             [UiElement.gridSlots[2], UiElement.gridSlots[4], UiElement.gridSlots[6]],
         ]
 
-        slots.forEach((line)=>{ 
-                let symbol;
-                for(let i = 0; i < line.length; i++){
-                    if(i == 0){
-                        if(!line[0].occupied) return;
-                        symbol = line[0].occupied;
-                    }
-
-                    if(i == 1){
-                        if(symbol == line[1].occupied){
-
-                        }
-                        else {
-                            break;
-                        }
-                    }
-
-                    if(i == 2){
-                        if(line[1].occupied == line[2].occupied){
-                            console.log('someone has won');
-                        }
-                    }
-                }
-            }
-        )
+        slots.forEach((line) => {
+            const allEqual = line.every( (value, i, arr) => value.occupied === arr[0].occupied && arr[0].occupied != false);
+            if(allEqual) playerWon(_currentTurn);
+        })
     }
-
     function playerWon(thisPlayer){
-        //set animation
+        console.log(`${thisPlayer.name} has won!`);
+        _playing = false;
+        updateScore(_currentTurn);
+        UiDisplayModule.updateAnnouncer(`${_currentTurn.name} has WON! YAY!`);
+        UiDisplayModule.displayInfo.togglePopupContainer(_currentTurn);
+    };
+
+    function updateScore(thisPlayer){
+        thisPlayer.score++;
+        console.log(thisPlayer.score);
+        console.log(thisPlayer.playerNumber)
+        UiDisplayModule.updateScore(thisPlayer);
     }
 
     return { newGame, personSelected, setPlayer, slotSelected, slotHover, slotHoverOut};
 })();
 
-const newPlayer = (name, symbol)=>{
+const newPlayer = (name, symbol, playerNumber)=>{
     
-    return { name, score: 0, symbol}
+    return { name, score: 0, symbol ,playerNumber}
 };
 
 
@@ -152,6 +139,8 @@ UiElement.setElementsByClass("gridSlot", "grid-slot", "click", GameModule.slotSe
 UiElement.enableEventListeners("gridSlot", "mouseover", GameModule.slotHover);
 UiElement.enableEventListeners("gridSlot", "mouseout", GameModule.slotHoverOut);
 UiElement.setGridSlot(UiElement.elements.gridSlot);
+UiElement.setElementByClass("popupContainer", "popup-container");
+UiElement.setElementByClass("popupText", "popup-announcer-text");
 
 
 

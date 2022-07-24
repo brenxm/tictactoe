@@ -204,6 +204,48 @@ body {
                 }
         }
     }
+
+    .popup-container {
+        display: none;
+        width: 120%;
+        height: 130px;
+        background-color: red;
+        position: relative;
+        top: -290px;
+        left: -30px;
+        border-radius: 13px;
+        background-color: rgb(230, 230, 230);
+        box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+        padding: 20px 50px;
+
+        p {
+            text-align: center;
+            font-size: 20px;
+            margin: 0;
+            margin-bottom: 20px;
+        }
+
+        > div{
+            display: flex;
+            gap: 10px;
+
+            > * {
+                flex: 1;
+                height: 40px;
+                border: none;
+                font-size: 15px;
+                border-radius: 7px;
+                font-weight: 600;
+                letter-spacing: 2px;
+                color: white;
+                background-color: dodgerblue;
+            }
+
+            > :first-child {
+                background-color: rgb(234, 95, 129);
+            }
+        }
+    }
     
 }
 
