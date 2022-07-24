@@ -87,11 +87,12 @@ body {
 }
 .display-info-container .opponent-selection-info {
   display: none;
+  padding: 0 25px;
 }
 .display-info-container .opponent-selection-info .versus-txt {
-  font-size: 30px;
+  font-size: 20px;
   height: 40px;
-  margin: 15px 0 30px 0;
+  margin: 50px 0 15px 0;
   text-align: center;
 }
 .display-info-container .opponent-selection-info .versus-but-container {
@@ -105,10 +106,12 @@ body {
 .display-info-container .opponent-selection-info .versus-but-container > * {
   padding: 0;
   height: 40px;
-  font-size: 20px;
+  font-size: 15px;
   border: none;
   border-radius: 6px;
   flex: 1;
+  background-color: dodgerblue;
+  color: white;
 }
 .display-info-container .naming-player-info {
   display: none;
