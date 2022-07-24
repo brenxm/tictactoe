@@ -22,7 +22,7 @@ body {
   border-bottom: 5px solid dodgerblue;
 }
 .title-container h1 {
-  color: rgb(65, 65, 65);
+  color: rgb(77, 77, 77);
   font-size: 40px;
 }
 
@@ -166,13 +166,13 @@ body {
   margin: 0;
 }
 .display-info-container .score-board-info .scoreboard-container > * > :first-child .x-icon {
-  background-image: url(./SVG/X.svg);
+  background-image: url(./svg/x.svg);
   height: 15px;
   width: 15px;
   margin-left: 5px;
 }
 .display-info-container .score-board-info .scoreboard-container > * > :first-child .o-icon {
-  background-image: url(./SVG/O.svg);
+  background-image: url(./svg/o.svg);
   height: 15px;
   width: 15px;
   margin-left: 5px;
