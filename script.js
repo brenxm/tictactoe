@@ -52,7 +52,7 @@ const GameModule = (function () {
     }
 
     function nextRound(){
-        UiDisplayModule.displayInfo.togglePopupContainer(null);
+        if (!_playing) UiDisplayModule.displayInfo.togglePopupContainer(null);
         UiElement.clearGridSlot();
         turnCurrentTurn();
         _playing = true;
@@ -101,16 +101,22 @@ const GameModule = (function () {
             [UiElement.gridSlots[2], UiElement.gridSlots[4], UiElement.gridSlots[6]],
         ]
 
-        slots.forEach((line) => {
-            const allEqual = line.every( (value, i, arr) => value.occupied === arr[0].occupied && arr[0].occupied != false);
-            if(allEqual) return playerWon(_currentTurn);
-        })
+        for(let i = 0; i < slots.length; i++){
+            const allEqual = slots[i].every((value, i, arr) => value.occupied === arr[0].occupied && arr[0].occupied != false);
+            if (allEqual) {
+                playerWon(_currentTurn);
+                break;
+            };
+        }
 
-        const trueth = UiElement.gridSlots.every((slot) => slot.occupied != false);
-        if (trueth) console.log("no wan won");
+
+        if (_playing) {
+            const trueth = UiElement.gridSlots.every((slot) => slot.occupied != false);
+            if (trueth) GameModule.nextRound();
+        }   
+        
     }
     function playerWon(thisPlayer){
-        console.log(`${thisPlayer.name} has won!`);
         _playing = false;
         updateScore(_currentTurn);
         UiDisplayModule.updateAnnouncer(`${_currentTurn.name} has WON! YAY!`);
@@ -119,21 +125,13 @@ const GameModule = (function () {
 
     function updateScore(thisPlayer){
         thisPlayer.score++;
-        console.log(thisPlayer.score);
-        console.log(thisPlayer.playerNumber)
         UiDisplayModule.updateScore(thisPlayer);
     }
 
     function navigateToHome(){
         UiDisplayModule.displayInfo.home();
-        clearBoard();
-        clearUserData();
-    }
-
-    function clearBoard(){
-        //clear all board to blank
-        //set gridslots occupied all to false
         UiElement.clearGridSlot();
+        clearUserData();
     }
 
     function clearUserData(){
@@ -167,11 +165,11 @@ UiElement.setElementByClass("announcerText", "announcer-text");
 UiElement.setElementsByClass("gridSlot", "grid-slot", "click", GameModule.slotSelected); 
 UiElement.enableEventListeners("gridSlot", "mouseover", GameModule.slotHover);
 UiElement.enableEventListeners("gridSlot", "mouseout", GameModule.slotHoverOut);
-UiElement.setGridSlot(UiElement.elements.gridSlot);
 UiElement.setElementByClass("popupContainer", "popup-container");
 UiElement.setElementByClass("popupText", "popup-announcer-text");
 UiElement.setElementByClass("homeBut", "home-but", "click", GameModule.navigateToHome);
 UiElement.setElementByClass("continueBut", "continue-but", "click", GameModule.nextRound);
+UiElement.setGridSlot(UiElement.elements.gridSlot);
 
 
 

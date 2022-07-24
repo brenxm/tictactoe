@@ -16,7 +16,6 @@ const UiDisplayModule = (function () {
         const nameInput = (() => {
 
             const player = () => { 
-                console.log("called");
                 UiElement.elements.opponentSelectionInfo.style.display = "none";
                 UiElement.elements.namingContainer.style.display = "block";
                 UiElement.elements.namingContainer.firstElementChild.textContent = "player one's name";
@@ -35,14 +34,12 @@ const UiDisplayModule = (function () {
         }
 
         const togglePopupContainer = (player) => {
-            console.log('called');
             const active = UiElement.elements.popupContainer.style.display == "block";
             if (active) return UiElement.elements.popupContainer.style.display = "none";
             UiElement.elements.popupContainer.style.display = "block";
             if (!player) return;
             UiElement.elements.popupText.textContent = `Player ${player.name} has WON!`;  
         }
-
 
         return { home, opponentSelection, nameInput, scoreboard, togglePopupContainer }
     })();
@@ -60,8 +57,6 @@ const UiDisplayModule = (function () {
     return {displayInfo, updateScore, updateAnnouncer}
 })();
 
-
-
 const UiElement = (function(doc){
     const elements = {}
     const gridSlots = [];
@@ -76,7 +71,6 @@ const UiElement = (function(doc){
         gridSlots.forEach((grid) => {
             grid.occupied = false;
             grid.element.style.backgroundImage = "";
-            console.log("colled");
         });
     }
 

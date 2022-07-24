@@ -162,6 +162,18 @@ body {
   padding: 0;
   margin: 0;
 }
+.display-info-container .score-board-info .scoreboard-container > * > :first-child .x-icon {
+  background-image: url(./SVG/X.svg);
+  height: 15px;
+  width: 15px;
+  margin-left: 5px;
+}
+.display-info-container .score-board-info .scoreboard-container > * > :first-child .o-icon {
+  background-image: url(./SVG/O.svg);
+  height: 15px;
+  width: 15px;
+  margin-left: 5px;
+}
 .display-info-container .score-board-info .scoreboard-container > * > :last-child {
   background-color: dodgerblue;
   height: 75px;
